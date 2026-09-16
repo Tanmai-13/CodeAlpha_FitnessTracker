@@ -11,7 +11,7 @@ export function todayISO(): string {
 
 export function addDays(iso: string, delta: number): string {
   const [y, m, d] = iso.split("-").map(Number);
-  const dt = new Date(y, (m ?? 1) - 1, d ?? 1);
+  const dt = new Date(y ?? 1970, (m ?? 1) - 1, d ?? 1);
   dt.setDate(dt.getDate() + delta);
   return toISODate(dt);
 }
@@ -23,12 +23,12 @@ export function lastSevenDays(end = todayISO()): string[] {
 
 export function shortLabel(iso: string): string {
   const [y, m, d] = iso.split("-").map(Number);
-  const dt = new Date(y, (m ?? 1) - 1, d ?? 1);
+  const dt = new Date(y ?? 1970, (m ?? 1) - 1, d ?? 1);
   return dt.toLocaleDateString(undefined, { weekday: "short" });
 }
 
 export function prettyDate(iso: string): string {
   const [y, m, d] = iso.split("-").map(Number);
-  const dt = new Date(y, (m ?? 1) - 1, d ?? 1);
+  const dt = new Date(y ?? 1970, (m ?? 1) - 1, d ?? 1);
   return dt.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
 }

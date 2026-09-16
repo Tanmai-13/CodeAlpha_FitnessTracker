@@ -47,7 +47,10 @@ function ProgressPage() {
   const weekWorkoutMinutes = workouts
     .filter((w) => week.some((d) => d.date === w.date))
     .reduce((s, w) => s + w.durationMin, 0);
-  const bestDay = week.reduce((best, d) => (d.steps > best.steps ? d : best), week[0]);
+  const bestDay = week.reduce<(typeof week)[number] | undefined>(
+    (best, d) => (!best || d.steps > best.steps ? d : best),
+    undefined,
+  );
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">

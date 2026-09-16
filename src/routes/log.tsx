@@ -63,7 +63,12 @@ function LogPage() {
       const next = Number.isFinite(current) ? current + amount : amount;
       return { ...v, [key]: String(next) };
     });
-    setErrors((e) => ({ ...e, [key]: undefined, form: undefined }));
+    setErrors((e) => {
+      const next = { ...e };
+      delete next[key];
+      delete next.form;
+      return next;
+    });
   }
 
   function submit(e: React.FormEvent) {
@@ -143,7 +148,12 @@ function LogPage() {
                     aria-invalid={Boolean(errors[f.key])}
                     onChange={(e) => {
                       setValues((v) => ({ ...v, [f.key]: e.target.value }));
-                      setErrors((er) => ({ ...er, [f.key]: undefined, form: undefined }));
+                      setErrors((er) => {
+                        const next = { ...er };
+                        delete next[f.key];
+                        delete next.form;
+                        return next;
+                      });
                     }}
                   />
                   <div className="flex flex-wrap gap-2">
